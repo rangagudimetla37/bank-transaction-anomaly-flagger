@@ -1,0 +1,5 @@
+transaction_id,account_id,amount,historical_mean,historical_std,z_score,abs_z_score,statistical_score,is_anomaly,explanation
+TXN004,ACC001,95000.0,2833.33,351.19,262.44,262.44,100,True,"Statistical outlier detected: Z-Score of +262.44 indicates amount (INR 95,000.00) is 262.44 standard deviations from customer historical mean (INR 2,833.33, std dev: INR 351.19)."
+TXN001,ACC001,2500.0,33666.67,53116.6,-0.59,0.59,15,False,"Amount (INR 2,500.00) is within normal statistical distribution (Z-Score: -0.59, historical mean: INR 33,666.67, std dev: INR 53,116.60)."
+TXN002,ACC001,3200.0,33433.33,53318.51,-0.57,0.57,14,False,"Amount (INR 3,200.00) is within normal statistical distribution (Z-Score: -0.57, historical mean: INR 33,433.33, std dev: INR 53,318.51)."
+TXN003,ACC001,2800.0,33566.67,53203.98,-0.58,0.58,14,False,"Amount (INR 2,800.00) is within normal statistical distribution (Z-Score: -0.58, historical mean: INR 33,566.67, std dev: INR 53,203.98)."

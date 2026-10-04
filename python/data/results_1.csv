@@ -1,0 +1,5 @@
+transaction_id,account_id,amount,historical_mean,historical_std,z_score,abs_z_score,statistical_score,is_anomaly,explanation
+TXN004,1,2900.0,2833.33,351.19,0.19,0.19,5,False,"Amount (INR 2,900.00) is within normal statistical distribution (Z-Score: +0.19, historical mean: INR 2,833.33, std dev: INR 351.19)."
+TXN001,1,2500.0,2966.67,208.17,-2.24,2.24,56,False,"Amount (INR 2,500.00) is within normal statistical distribution (Z-Score: -2.24, historical mean: INR 2,966.67, std dev: INR 208.17)."
+TXN002,1,3200.0,2733.33,208.17,2.24,2.24,56,False,"Amount (INR 3,200.00) is within normal statistical distribution (Z-Score: +2.24, historical mean: INR 2,733.33, std dev: INR 208.17)."
+TXN003,1,2800.0,2866.67,351.19,-0.19,0.19,5,False,"Amount (INR 2,800.00) is within normal statistical distribution (Z-Score: -0.19, historical mean: INR 2,866.67, std dev: INR 351.19)."
