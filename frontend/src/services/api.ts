@@ -330,18 +330,30 @@ export const api = {
         body: JSON.stringify({ bankId, password }),
       });
 
-      const data = await response.json();
+      let data: any = null;
+      try {
+        data = await response.json();
+      } catch {
+        // Non-JSON response
+      }
+
       if (!response.ok) {
+        if (response.status === 403) {
+          return {
+            success: false,
+            message: 'Access blocked by security policy. Please verify connection origin.',
+          };
+        }
         return {
           success: false,
-          message: data.message || (response.status === 429 ? 'Too many failed attempts. Please try again later.' : 'Invalid Bank ID or password.'),
+          message: (data && data.message) || (response.status === 429 ? 'Too many failed attempts. Please try again later.' : 'Invalid Bank ID or password.'),
         };
       }
 
-      if (data.token) {
+      if (data && data.token) {
         setToken(data.token);
       }
-      return data;
+      return data || { success: true, message: 'Login successful.' };
     } catch {
       return {
         success: false,
