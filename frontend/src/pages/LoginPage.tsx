@@ -63,11 +63,10 @@ export const LoginPage: React.FC = () => {
           navigate('/dashboard', { replace: true });
         }
       } else {
-        // Strict requirement: Always show generic message
-        setErrorMessage('Invalid Bank ID or password.');
+        setErrorMessage(result.message || 'Invalid Bank ID or password.');
       }
     } catch {
-      setErrorMessage('Invalid Bank ID or password.');
+      setErrorMessage('Unable to connect to the server. Please verify the backend is running.');
     } finally {
       setIsSubmitting(false);
     }

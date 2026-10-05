@@ -1052,7 +1052,9 @@ a:hover {
   to { transform: rotate(360deg); }
 }
 
-/* Responsive adjustments */
+/* ─────────────────────────────────────────────
+   RESPONSIVE — Tablet (≤ 860px) — Navigation
+   ───────────────────────────────────────────── */
 @media (max-width: 860px) {
   .desktop-nav {
     display: none;
@@ -1071,6 +1073,7 @@ a:hover {
     border-bottom: 2px solid #003366;
     padding: 12px 24px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+    z-index: 49;
   }
   .mobile-nav-link {
     padding: 10px 0;
@@ -1079,24 +1082,107 @@ a:hover {
     color: #334155;
     border-bottom: 1px solid #f1f5f9;
     text-decoration: none;
+    display: block;
   }
-  .mobile-nav-link.active {
-    color: #0066cc;
-  }
+  .mobile-nav-link.active { color: #0066cc; }
   .mobile-nav-link.logout-link {
     color: #dc2626;
     background: none;
     border: none;
     text-align: left;
     cursor: pointer;
+    width: 100%;
+    font-size: 0.92rem;
+    font-weight: 600;
+    padding: 10px 0;
   }
-  .logout-text {
-    display: none;
-  }
-  .btn-logout {
-    padding: 8px;
-  }
-  .acc-card-balance-block {
-    text-align: left;
-  }
+  .logout-text { display: none; }
+  .btn-logout { padding: 8px; }
+  .acc-card-balance-block { text-align: left; }
+
+  .top-banking-header { padding: 10px 16px; position: relative; }
+  .header-left { gap: 12px; }
+  .brand-title { font-size: 1rem; }
+  .brand-subtitle { display: none; }
+  .user-info-text { display: none; }
+  .user-profile-chip { padding: 5px 8px; }
+
+  .main-content { padding: 20px 16px; }
+  .page-title-block h1 { font-size: 1.3rem; }
+  .page-header-row { flex-direction: column; align-items: flex-start; gap: 12px; }
+
+  .metric-cards-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .metric-value { font-size: 1.35rem; }
+
+  .auth-card { margin: 20px auto; max-width: 100%; }
+  .phase-notice-strip { font-size: 0.78rem; padding: 10px 14px; }
+}
+
+/* ─────────────────────────────────────────────
+   RESPONSIVE — Mobile (≤ 480px)
+   ───────────────────────────────────────────── */
+@media (max-width: 480px) {
+  body { overflow-x: hidden; }
+
+  .top-banking-header { padding: 8px 12px; }
+  .brand-icon { width: 30px; height: 30px; }
+  .brand-title { font-size: 0.92rem; }
+  .header-right { gap: 8px; }
+
+  .main-content { padding: 16px 12px; }
+  .page-title-block h1 { font-size: 1.15rem; }
+  .page-title-block p { font-size: 0.8rem; }
+
+  .metric-cards-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .metric-card { padding: 14px 16px; }
+  .metric-value { font-size: 1.2rem; }
+  .metric-label { font-size: 0.7rem; }
+
+  .content-card { padding: 16px 14px; margin-bottom: 16px; }
+  .card-title-row h2, .card-title-row h3 { font-size: 1rem; }
+
+  .table-responsive { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .banking-table { min-width: 520px; font-size: 0.78rem; }
+  .banking-table th, .banking-table td { padding: 10px 12px; }
+
+  .auth-card { margin: 12px; width: auto; }
+  .auth-card-header h2 { font-size: 1.2rem; }
+  .auth-card-body { padding: 20px 18px; }
+
+  .form-input { font-size: 0.9rem; padding: 10px 12px; width: 100%; }
+  .btn-primary { width: 100%; padding: 12px; font-size: 0.9rem; }
+  .form-options { flex-direction: column; gap: 8px; align-items: flex-start; }
+
+  .page-header-row { gap: 8px; }
+  .page-header-row .btn-primary,
+  .page-header-row .btn-secondary { width: 100%; justify-content: center; }
+
+  .txn-detail-grid { grid-template-columns: 1fr; }
+  .risk-score-display { font-size: 2rem; }
+  .review-grid { grid-template-columns: 1fr; }
+  .security-status-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  .graph-container { overflow: auto; -webkit-overflow-scrolling: touch; }
+  .graph-svg-wrapper { min-width: 360px; }
+
+  .phase-notice-strip { flex-direction: column; align-items: flex-start; gap: 6px; font-size: 0.76rem; }
+  .notification-dropdown { width: calc(100vw - 24px); right: -60px; }
+
+  .filter-tabs { overflow-x: auto; -webkit-overflow-scrolling: touch; flex-wrap: nowrap; padding-bottom: 4px; }
+  .txn-id-tag { font-size: 0.7rem; max-width: 120px; overflow: hidden; text-overflow: ellipsis; }
+
+  .rule-result-item { flex-direction: column; align-items: flex-start; gap: 4px; }
+  .alert-actions { flex-direction: column; gap: 8px; }
+  .alert-actions .btn-primary, .alert-actions .btn-secondary { width: 100%; justify-content: center; }
+  .decision-buttons { flex-direction: column; gap: 8px; }
+  .logout-text { display: none; }
+}
+
+/* ─────────────────────────────────────────────
+   RESPONSIVE — Very small (≤ 360px)
+   ───────────────────────────────────────────── */
+@media (max-width: 360px) {
+  .metric-cards-grid { grid-template-columns: 1fr; }
+  .security-status-grid { grid-template-columns: 1fr; }
+  .main-content { padding: 12px 10px; }
 }

@@ -14,7 +14,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, requir
     return (
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', flexDirection: 'column', gap: '12px' }}>
         <div className="spinner" style={{ borderColor: '#003366', borderTopColor: 'transparent', width: '28px', height: '28px', borderWidth: '3px' }}></div>
-        <span style={{ fontSize: '0.85rem', color: '#64748b' }}>Verifying secure session...</span>
+        <span style={{ fontSize: '0.85rem', color: '#64748b' }}>Loading SecureBank...</span>
       </div>
     );
   }
@@ -24,7 +24,10 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, requir
   }
 
   if (requiredRole && user?.role !== requiredRole) {
-    // Role-based protection: if customer tries to access reviewer route, redirect to customer dashboard
+    // Role-based protection: Reviewer redirected to /review; Customer redirected to /dashboard
+    if (user?.role === 'REVIEWER') {
+      return <Navigate to="/review" replace />;
+    }
     return <Navigate to="/dashboard" replace />;
   }
 
