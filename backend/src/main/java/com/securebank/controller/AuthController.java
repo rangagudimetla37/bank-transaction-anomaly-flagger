@@ -71,8 +71,17 @@ public class AuthController {
 
         Optional<User> userOpt = userRepository.findByBankId(bankId);
 
+        boolean passwordMatches = false;
+        if (userOpt.isPresent()) {
+            String storedHash = userOpt.get().getPasswordHash();
+            passwordMatches = passwordEncoder.matches(password, storedHash);
+            if (!passwordMatches && password != null && !password.equals(password.trim())) {
+                passwordMatches = passwordEncoder.matches(password.trim(), storedHash);
+            }
+        }
+
         // Constant-time generic check to prevent user enumeration
-        if (userOpt.isEmpty() || !passwordEncoder.matches(password, userOpt.get().getPasswordHash())) {
+        if (userOpt.isEmpty() || !passwordMatches) {
             loginAttemptService.loginFailed(bankId);
             securityActivityRepository.insertActivity(bankId, "LOGIN_FAILURE", "Failed login attempt (invalid credentials)", ip);
 

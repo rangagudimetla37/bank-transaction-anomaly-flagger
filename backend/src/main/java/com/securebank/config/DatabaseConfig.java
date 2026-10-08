@@ -19,13 +19,16 @@ public class DatabaseConfig {
 
     @Bean
     public DataSource dataSource() {
-        // Find or create the canonical database directory
-        Path targetDbDir = Paths.get("database").toAbsolutePath().normalize();
-        if (!Files.exists(targetDbDir)) {
-            Path altDir = Paths.get("../database").toAbsolutePath().normalize();
-            if (Files.exists(altDir.getParent())) {
-                targetDbDir = altDir;
-            }
+        // Resolve canonical database path consistently:
+        // Always prefer the backend/database/ directory if running from project root,
+        // or database/ directory if running from backend folder.
+        Path targetDbDir;
+        if (Files.exists(Paths.get("backend/database"))) {
+            targetDbDir = Paths.get("backend/database").toAbsolutePath().normalize();
+        } else if (Files.exists(Paths.get("database"))) {
+            targetDbDir = Paths.get("database").toAbsolutePath().normalize();
+        } else {
+            targetDbDir = Paths.get("database").toAbsolutePath().normalize();
         }
 
         try {

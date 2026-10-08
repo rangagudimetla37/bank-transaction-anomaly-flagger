@@ -196,9 +196,10 @@ public class DatabaseInitializer implements ApplicationRunner {
             );
             """);
 
-        // Seed demo user SB100001 (Customer)
+        // Seed or refresh demo user SB100001 (Customer)
         String demoBankId = "SB100001";
-        if (userRepository.findByBankId(demoBankId).isEmpty()) {
+        Optional<User> demoUserOpt = userRepository.findByBankId(demoBankId);
+        if (demoUserOpt.isEmpty()) {
             logger.info("Seeding synthetic demo account for Bank ID: {}", demoBankId);
             String demoPasswordHash = passwordEncoder.encode("Demo@12345");
             String securityPinHash = passwordEncoder.encode("778899");
@@ -211,11 +212,15 @@ public class DatabaseInitializer implements ApplicationRunner {
             demoUser.setSecurityAnswerHash(securityPinHash);
 
             userRepository.insertUser(demoUser);
+        } else if (!passwordEncoder.matches("Demo@12345", demoUserOpt.get().getPasswordHash())) {
+            logger.info("Re-aligning demo password hash for Bank ID: {}", demoBankId);
+            userRepository.updatePassword(demoBankId, passwordEncoder.encode("Demo@12345"));
         }
 
-        // Seed demo reviewer REV100001 (Reviewer - Phase 6)
+        // Seed or refresh demo reviewer REV100001 (Reviewer - Phase 6)
         String reviewerBankId = "REV100001";
-        if (userRepository.findByBankId(reviewerBankId).isEmpty()) {
+        Optional<User> reviewerUserOpt = userRepository.findByBankId(reviewerBankId);
+        if (reviewerUserOpt.isEmpty()) {
             logger.info("Seeding synthetic reviewer account for Bank ID: {}", reviewerBankId);
             String reviewerPasswordHash = passwordEncoder.encode("Review@12345");
             String reviewerPinHash = passwordEncoder.encode("778899");
@@ -228,6 +233,9 @@ public class DatabaseInitializer implements ApplicationRunner {
             reviewerUser.setSecurityAnswerHash(reviewerPinHash);
 
             userRepository.insertUser(reviewerUser);
+        } else if (!passwordEncoder.matches("Review@12345", reviewerUserOpt.get().getPasswordHash())) {
+            logger.info("Re-aligning demo reviewer password hash for Bank ID: {}", reviewerBankId);
+            userRepository.updatePassword(reviewerBankId, passwordEncoder.encode("Review@12345"));
         }
 
         // Seed demo account ACC100001
@@ -250,7 +258,8 @@ public class DatabaseInitializer implements ApplicationRunner {
 
         // Seed secondary demo customer SB100002 for Phase 7 shared recipient network analysis
         String demoCustomer2 = "SB100002";
-        if (userRepository.findByBankId(demoCustomer2).isEmpty()) {
+        Optional<User> demoCustomer2Opt = userRepository.findByBankId(demoCustomer2);
+        if (demoCustomer2Opt.isEmpty()) {
             logger.info("Seeding secondary customer account for Bank ID: {}", demoCustomer2);
             String passHash2 = passwordEncoder.encode("Demo@12345");
             String pinHash2 = passwordEncoder.encode("778899");
@@ -262,6 +271,9 @@ public class DatabaseInitializer implements ApplicationRunner {
             user2.setSecurityQuestion("Demo Security PIN");
             user2.setSecurityAnswerHash(pinHash2);
             userRepository.insertUser(user2);
+        } else if (!passwordEncoder.matches("Demo@12345", demoCustomer2Opt.get().getPasswordHash())) {
+            logger.info("Re-aligning demo password hash for Bank ID: {}", demoCustomer2);
+            userRepository.updatePassword(demoCustomer2, passwordEncoder.encode("Demo@12345"));
         }
 
         Optional<Account> existingAccount2 = accountRepository.findByBankId(demoCustomer2);
