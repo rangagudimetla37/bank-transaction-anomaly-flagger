@@ -122,3 +122,7 @@ htmlcov/
 # PACKAGE MANAGER LOCKS (keep package-lock.json for npm)
 # ─────────────────────────────────────────────────────────────
 # package-lock.json is intentionally committed for reproducible installs
+
+# Non-project folders
+happy-birthday-prem/
+

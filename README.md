@@ -1,4 +1,6 @@
-# Bank Transaction Anomaly Flagger
+# SecureBank
+
+**Secure Digital Banking — Bank Transaction Anomaly/Fraud Detection Mini Project**
 
 > **College Mini-Project** — A localhost-only banking security prototype that detects potentially anomalous transactions using multi-layer analysis.
 >
