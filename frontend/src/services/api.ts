@@ -344,6 +344,12 @@ export const api = {
             message: 'Access blocked by security policy. Please verify connection origin.',
           };
         }
+        if (response.status >= 500) {
+          return {
+            success: false,
+            message: (data && data.message) || 'Backend service is unavailable. Please verify the Java server is running.',
+          };
+        }
         return {
           success: false,
           message: (data && data.message) || (response.status === 429 ? 'Too many failed attempts. Please try again later.' : 'Invalid Bank ID or password.'),
